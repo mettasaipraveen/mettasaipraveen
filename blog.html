@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Stylish Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to right, #a18cd1, #fbc2eb);
+      color: #fff;
+    }
+
+    nav {
+  background-color: #2c3e50;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav li {
+      margin: 0 15px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #fbc2eb;
+    }
+
+    .logout-btn {
+      background-color: #e74c3c;
+      border: none;
+      padding: 8px 14px;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background-color: #c0392b;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 10px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    main {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px 20px 80px;
+    }
+
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    input, textarea {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #6a11cb;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #8e2de2;
+    }
+
+    .post {
+      background-color: rgba(255, 255, 255, 0.15);
+      padding: 15px 20px;
+      margin: 15px 0;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    .post h3 {
+      color: #fff;
+    }
+
+    .post p {
+      color: #eee;
+    }
+
+    .post img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+
+    .icons {
+      text-align: right;
+      font-size: 1.1rem;
+    }
+
+    .icons i {
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #2c3e50;
+      text-align: center;
+      color: #fff;
+      padding: 10px 0;
+      font-size: 0.9rem;
+    }
+
+    
+    #loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('image.jpg') no-repeat center center/cover;
+}
+
+
+    #loginPage form {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    #loginPage input {
+      width: 100%;
+    }
+
+    .logout-btn {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  background-color: #e74c3c;
+  border: none;
+  padding: 8px 14px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upload-label {
+  display: inline-block;
+  background-color: #8e2de2;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.upload-label:hover {
+  background-color: #6a11cb;
+}
+
+.upload-label i {
+  margin-right: 8px;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div id="loginPage">
+    <form id="loginForm">
+      <h2 style="color:white;">Login to My Stylish Blog</h2><br>
+      <input type="text" id="username" placeholder="Enter username" required />
+      <input type="password" id="password" placeholder="Enter password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div id="appContent" style="display: none;">
+    <nav>
+      <ul>
+        <li><a href="#" onclick="showSection('home')"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#" onclick="showSection('about')"><i class="fas fa-user"></i> About</a></li>
+        <li><a href="#" onclick="showSection('blog')"><i class="fas fa-pen-nib"></i> Blog</a></li>
+        <li><a href="#" onclick="showSection('contact')"><i class="fas fa-envelope"></i> Contact</a></li>
+      </ul>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </nav>
+
+    <header>
+      <h1>Tiny Blog Huge Vibes</h1>
+      <p>The journey of a thousand miles begins with a single step</p>
+    </header>
+
+    <main>
+      <section id="home" class="active">
+        <form id="blogForm">
+          <input type="text" id="title" placeholder="Enter blog title" required />
+          <textarea id="content" rows="4" placeholder="Your blog starts from here..." required></textarea>
+          <label for="imageUpload" class="upload-label">
+            <i class="fas fa-image"></i> Upload Image
+          </label>
+          <input type="file" id="imageUpload" accept="image/*" style="display: none;" />
+          
+          <button type="submit">Post Blog</button>
+        </form>
+      </section>
+
+      <section id="blog">
+        <h2>All Blog Posts</h2>
+        <div id="blogContainer"></div>
+      </section>
+
+      <section id="about">
+        <h2>About This Blog</h2>
+        <p>This is a creative space to share your thoughts and ideas with the world. Enjoy writing!!....</p>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>Ph no.*********</p>
+      </section>
+    </main>
+    
+    <footer>
+      Tiny blog
+    </footer>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll("section");
+    const blogForm = document.getElementById("blogForm");
+    const blogContainer = document.getElementById("blogContainer");
+    const loginPage = document.getElementById("loginPage");
+    const appContent = document.getElementById("appContent");
+    const imageInput = document.getElementById("imageUpload");
+    const imagePreview = document.getElementById("imagePreview");
+    let uploadedImage = "";
+
+    function showSection(id) {
+      sections.forEach(section => section.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      if (id === "blog") displayPosts();
+    }
+
+    function savePosts(posts) {
+      localStorage.setItem("blogPosts", JSON.stringify(posts));
+    }
+
+    function getPosts() {
+      return JSON.parse(localStorage.getItem("blogPosts")) || [];
+    }
+
+    function displayPosts() {
+      const posts = getPosts();
+      blogContainer.innerHTML = "";
+      posts.forEach((post, index) => {
+        const div = document.createElement("div");
+        div.className = "post";
+        div.innerHTML = `
+          <h3>${post.title}</h3>
+          ${post.image ? `<img src="${post.image}" />` : ""}
+          <p>${post.content}</p>
+          <div class="icons">
+            <i class="fas fa-edit" onclick="editPost(${index})"></i>
+            <i class="fas fa-trash" onclick="deletePost(${index})"></i>
+          </div>
+        `;
+        blogContainer.appendChild(div);
+      });
+    }
+
+    blogForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const title = document.getElementById("title").value;
+      const content = document.getElementById("content").value;
+      const posts = getPosts();
+      posts.unshift({ title, content, image: uploadedImage });
+      savePosts(posts);
+      blogForm.reset();
+      uploadedImage = "";
+      imagePreview.style.display = "none";
+      alert("Blog posted! Go to Blog section to see it.");
+    });
+
+    function deletePost(index) {
+      const posts = getPosts();
+      posts.splice(index, 1);
+      savePosts(posts);
+      displayPosts();
+    }
+
+    function editPost(index) {
+      const posts = getPosts();
+      const post = posts[index];
+      document.getElementById("title").value = post.title;
+      document.getElementById("content").value = post.content;
+      uploadedImage = post.image || "";
+      if (uploadedImage) {
+        imagePreview.src = uploadedImage;
+        imagePreview.style.display = "block";
+      }
+      deletePost(index);
+      showSection('home');
+    }
+
+    imageInput.addEventListener("change", function () {
+      const file = imageInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          uploadedImage = e.target.result;
+          imagePreview.src = uploadedImage;
+          imagePreview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      loginPage.style.display = "none";
+      appContent.style.display = "block";
+    });
+
+    function logout() {
+      location.reload();
+    }
+
+    showSection('home');
+  </script>
+</body>
+</html>
